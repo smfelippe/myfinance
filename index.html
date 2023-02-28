@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My.finance$</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styleRegPass.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,400;0,700;1,100;1,200;1,400;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body id="body">
+   <div class="top_container">
+    <header class="header">
+        <img src="./assets/logo1.svg" alt="logo My Finance">
+        <a href="#" onclick="Modal.open()" class="button_new" name=> Nova Transação</a>
+    </header>
+   </div>
+        
+    <div class="body_card" id="body_card">
+        <div class="containerPass" id="container">
+            <div class="cardPass">
+                <h1> Entrar </h1>
+                <div id="msgError"></div>
+                <div class="label_float">
+                    <input type="text" id="usuario" placeholder="" required>
+                    <label id="userLabel" for="usuario">Usuário</label>
+                </div>
+                <div class="label_float">
+                    <input type="password" id="senha" placeholder="" required>
+                    <label id="senhaLabel" for="senha">Senha</label>
+                    <img class="eye" id="see_password" src="./assets/eye.svg" alt="ver senha">
+                </div>
+                <div class="justify-center">
+                    <button class="btnEnter" onclick="enter()">Entrar</button>
+                </div>
+                <div class="justify-center">
+                    <hr>
+                </div>
+                <a href="#" onclick="gotoRegister()" class="UserRegister" name=>Cadastrar usuário</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="body_register" id="bodyRegister">
+        <div class="containerReg">
+            <div class="cardReg">
+                <h1> Cadastro de usuário </h1>
+                <div id="msgError"></div>
+                <div id="msgSuccess"></div>
+                <div class="label_float">
+                    <input type="text" id="name_complete" placeholder="" required>
+                    <label id="labelName" for="name">Nome</label>
+                </div>
+                <div class="label_float">
+                    <input type="test" id="user" placeholder="" required>
+                    <label id="labelUser" for="user">Usuário</label>
+                </div>
+                <div class="label_float">
+                    <input type="password" id="passwordReg" placeholder="" required>
+                    <label id="labelPassword" for="password">Senha</label>
+                    <img class="eye" id="see_passwordReg" src="./assets/eye.svg" alt="ver senha">
+                </div>
+                <div class="label_float">
+                    <input type="password" id="confirm_password" placeholder="" required>
+                    <label id="labelConfirmPassword" for="confirm_password">Confirmar senha</label>
+                    <img class="eye" id="see_confirm_password" src="./assets/eye.svg" alt="ver senha">
+                </div>
+                <div class="justify-center">
+                    <button class="btnRegister" onclick="registered()">Cadastrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="container" id="appInit">
+        <section id="balance">
+            <h2 class="sr-only">Balanço</h2>
+            <div class="card">
+                <h3>
+                    <span>Entradas</span>
+                    <img src="./assets/income.svg" alt="imagem de entradas">
+                </h3>
+                <p id="incomeDisplay">R$ 0,00</p>
+            </div>
+            <div class="card expense">
+                <h3>
+                    <span>Saídas</span>
+                    <img src="./assets/expense.svg" alt="imagem de entradas">
+                </h3>
+                <p id="expenseDisplay">R$ 0,00</p>
+            </div>
+            <div class="card total">
+                <h3>
+                    <span>Total</span>
+                    <img src="./assets/total.svg" alt="imagem de entradas">
+                </h3>
+                <p id="totalDisplay">R$ 0,00</p>
+            </div>
+        </section>
+    
+        <section id="transactions">
+            <!-- <h2 class="sr-only">Transações</h2> -->
+            <!-- <a href="#" onclick="Modal.open()" class="button_new" name=> Nova Transação</a> -->
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Valor</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div class="modal-overlay">
+        <div class="modal">
+            <div id="form">
+                <p id="msg_error" class="msg_error"></p>
+                    <h2>Nova Transação</h2>
+                <form action="" onsubmit="Form.submit(event)">
+                    <div class="input-group">
+                        <label class="sr-only" for="description">Descrição</label>
+                        <input type="text" id="description" class="error1" name="description" placeholder="Descrição" />
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="amount">Valor</label>
+                        <input type="number" step="0.01" id="amount" name="amount" class="error2" placeholder="0,00" />
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="date">Descrição</label>
+                        <input type="date" id="date" name="date" class="error3" />
+              
+                        <input type="text" class="help"
+                            value="Use o sinal - (negativo) para despesas e , (vírgula) para centavos">
+                    </div>
+                    <div class="input-group actions">
+                        <a href="#" onclick="Modal.close()" class="button cancel">cancelar</a>
+                        <button class="save">salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay modal-edit">
+        <div class="modal_edit">
+            <div id="form">
+                <p id="msg_error-edit" class="msg_error1"></p>
+                <h2>Editar Transação</h2>
+                <form action="" onsubmit="Form.submit(event)">
+                    <div class="input-group">
+                        <label class="sr-only" for="description"></label>
+                        <input type="text" id="description_edit" class="error4" name="description" placeholder="Descrição" />
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="amount"></label>
+                        <input type="number" step="0.01" id="amount_edit" name="amount" class="error5" placeholder="0,00" />
+                    </div>
+                    <div class="input-group">
+                        <label class="sr-only" for="date"></label>
+                        <input type="date" id="date_edit" name="date" class="error6" />
+              
+                        <input type="text" class="help"
+                            value="Use o sinal - (negativo) para despesas e , (vírgula) para centavos">
+                    </div>
+                    <div class="input-group actions">
+                        <a href="#" onclick="Modal.close()" class="button cancel">cancelar</a>
+                        <button class="save">alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay confirm-delete">
+        <div class="delete">
+            <h3>Essa transação será excluida</h3>
+            <form action="">
+                <div class="buttons actions">
+                    <a href="#" onclick="Modal.cancel()" class="button-cancel">Cancelar</a>
+                    <form action="">
+                    <a href="#" onclick="Modal.remove()" class="button-delete">Confirmar</a>
+                    </form>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <h6>
+            <div class="company">
+                <img src="./assets/logo_Co.svg" height="20">
+                <div class="logoCompany">Tecnologia e Desenvolvimento</div>
+            </div>
+        </h6>
+    </footer>
+
+    <script src="./scripts.js" .></script>
+    <script src="./scriptsReg.js" .></script>
+    <script src="./scriptsPass.js" .></script>
+
+
+</body>
+
+</html>
